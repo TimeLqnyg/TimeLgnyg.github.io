@@ -6,13 +6,16 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019 | 随笔</title>
+  <title>stream | 随笔</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="随笔">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;archives&#x2F;2019&#x2F;index.html">
+  <meta name="description" content="JDK 1.8 新特性 stream流编程（一）什么是stream流编程Stream流编程的概念将数据放在一个stream流中处理，流的起始段放入需要处理的数据，尾端返回处理后的结果， 在期间进行处理操作 。 外部迭代和内部迭代 外部迭代： 使用for&#x2F;while循环迭代  1234567&#x2F;&#x2F;外部迭代int[] nums=&amp;#123;1,2,3&amp;#125;;int sum=0;for(int i:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="stream">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;24&#x2F;stream&#x2F;index.html">
 <meta property="og:site_name" content="随笔">
+<meta property="og:description" content="JDK 1.8 新特性 stream流编程（一）什么是stream流编程Stream流编程的概念将数据放在一个stream流中处理，流的起始段放入需要处理的数据，尾端返回处理后的结果， 在期间进行处理操作 。 外部迭代和内部迭代 外部迭代： 使用for&#x2F;while循环迭代  1234567&#x2F;&#x2F;外部迭代int[] nums=&amp;#123;1,2,3&amp;#125;;int sum=0;for(int i:">
 <meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2019-11-20T11:25:16.026Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="随笔" type="application/atom+xml">
@@ -141,76 +144,288 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-stream" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      stream
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/24/stream/" class="archive-article-date">
+
+        
+        <a href="/2019/11/24/stream/" class="archive-article-date">
   	<time datetime="2019-11-24T10:55:02.961Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-24</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/24/stream/">stream</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="JDK-1-8-新特性-stream流编程"><a href="#JDK-1-8-新特性-stream流编程" class="headerlink" title="JDK 1.8 新特性 stream流编程"></a>JDK 1.8 新特性 stream流编程</h3><h4 id="（一）什么是stream流编程"><a href="#（一）什么是stream流编程" class="headerlink" title="（一）什么是stream流编程"></a>（一）什么是stream流编程</h4><h5 id="Stream流编程的概念"><a href="#Stream流编程的概念" class="headerlink" title="Stream流编程的概念"></a>Stream流编程的概念</h5><p>将数据放在一个stream流中处理，流的起始段放入需要处理的数据，尾端返回处理后的结果， 在期间进行处理操作 。</p>
+<h5 id="外部迭代和内部迭代"><a href="#外部迭代和内部迭代" class="headerlink" title="外部迭代和内部迭代"></a>外部迭代和内部迭代</h5><ul>
+<li><p>外部迭代： 使用for/while循环迭代 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//外部迭代</span></span><br><span class="line"><span class="keyword">int</span>[] nums=&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> sum=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i:nums) &#123;</span><br><span class="line">     sum+=i;</span><br><span class="line">&#125;</span><br><span class="line">System.out.println(<span class="string">"结果为："</span>+sum);</span><br></pre></td></tr></table></figure>
 
-        <div class="article-info info-on-right">
-          
-          
 
+
+</li>
+</ul>
+<ul>
+<li><p>内部迭代：不需要关心如何循环的操作 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//外部迭代</span></span><br><span class="line"><span class="keyword">int</span> [] nums = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> sum2 = IntStream.of(nums).sum();</span><br><span class="line">System.out.println(<span class="string">"结果为:"</span>+sum);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h5 id="惰性求值"><a href="#惰性求值" class="headerlink" title="惰性求值"></a>惰性求值</h5><ul>
+<li><p>中间操作和终止操作</p>
+<p> 如下实例就是中间操作（返回流的操作），sum是终止操作(即看方法返回的类型，如果返回Stream则是中间操作，如果返回其他则是终止操作)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> sum2 = IntStream.of(nums).map(i-&gt;i*<span class="number">2</span>).sum();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>惰性求值就是终止（终止操作）没有调用的情况下，中间操作不会执行。</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//乘2</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">doubleNum</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"执行了乘2操作"</span>);</span><br><span class="line">    <span class="keyword">return</span> i*<span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//map参数使用静态引入的方式</span></span><br><span class="line"><span class="keyword">int</span> sum2 = IntStream.of(nums).map(StreamDemo::doubleNum).sum();<span class="comment">//输出多次执行了乘2操作，并执行*2操作</span></span><br><span class="line">System.out.println(<span class="string">"结果为"</span>:sum2);<span class="comment">//正常输出</span></span><br><span class="line">System.out.println(<span class="string">"————————————————"</span>);<span class="comment">//正常输出</span></span><br><span class="line">IntStream.of(nums).map(StreamDemo::doubleNum);<span class="comment">//此时由于没有调用终止操作，故不会调用静态引入方法doubleNum，即不会输出：执行了乘2操作</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="（二）Stream流编程—创建"><a href="#（二）Stream流编程—创建" class="headerlink" title="（二）Stream流编程—创建"></a>（二）Stream流编程—创建</h4><pre><code>##### Stream流的创建方式</code></pre><table>
+<thead>
+<tr>
+<th align="center">创建方式</th>
+<th align="center">相关方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">集合</td>
+<td align="center">Collection.stream / parallelStream</td>
+</tr>
+<tr>
+<td align="center">数组</td>
+<td align="center">Arrays.stream</td>
+</tr>
+<tr>
+<td align="center">数字Stream</td>
+<td align="center">IntStream / LongStream.range/rangeClosed / Random.ints/longs /doubles</td>
+</tr>
+<tr>
+<td align="center">自己创建</td>
+<td align="center">Stream.generate / iterate</td>
+</tr>
+</tbody></table>
+<h5 id="代码演示"><a href="#代码演示" class="headerlink" title="代码演示"></a>代码演示</h5><p>这里只演示自己创建的方式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//自己创建流   Stream.generate(Supplier&lt;T&gt; s)</span></span><br><span class="line">Random random=<span class="keyword">new</span> Random();</span><br><span class="line">Stream.generate(()-&gt;random.nextInt()).limit(<span class="number">20</span>); <span class="comment">//产生的流是一个无限的流 要使用limit配合</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="（三）中间操作"><a href="#（三）中间操作" class="headerlink" title="（三）中间操作"></a>（三）中间操作</h4><h5 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h5><p>distinct往下都是有状态操作  有状态操作一般需要两个参数</p>
+<table>
+<thead>
+<tr>
+<th align="center">相关方法</th>
+<th align="center">方法说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">map / mapToXxx</td>
+<td align="center">将流中是的数据装换成其他的类型的数据</td>
+</tr>
+<tr>
+<td align="center">flatMap / flatMapToXxx</td>
+<td align="center">A元素下面有B属性(是个集合)，最终得到所有的A元素里面的所有B属性集合</td>
+</tr>
+<tr>
+<td align="center">filter</td>
+<td align="center">过滤器</td>
+</tr>
+<tr>
+<td align="center">peek</td>
+<td align="center">适用于debug   参数是Consumer<T> 类似于forEach 但forEach是终止操作</T></td>
+</tr>
+<tr>
+<td align="center">distinct</td>
+<td align="center">去重</td>
+</tr>
+<tr>
+<td align="center">sort</td>
+<td align="center">排序</td>
+</tr>
+<tr>
+<td align="center">limit / skip</td>
+<td align="center">限制生成的个数/跳过一些个数</td>
+</tr>
+</tbody></table>
+<h5 id="常用方法的演示"><a href="#常用方法的演示" class="headerlink" title="常用方法的演示"></a>常用方法的演示</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//map filter</span></span><br><span class="line">String str=<span class="string">"my name is zjh"</span>;</span><br><span class="line">Stream.of(str.split(<span class="string">" "</span>)).map(s-&gt;s.length()).filter(l-&gt;l&gt;<span class="number">2</span>).forEach(System.out::println);</span><br><span class="line"></span><br><span class="line"><span class="comment">//flatMap适用于 A元素下面有B属性(是个集合)，最终得到所有的A元素里面的所有B属性集合</span></span><br><span class="line">Stream.of(str.split(<span class="string">" "</span>)).flatMap(s-&gt;s.chars().boxed()).forEach(i-&gt;System.out.println((<span class="keyword">char</span>)i.intValue()));</span><br><span class="line"></span><br><span class="line"><span class="comment">//peek用于debug 是个中间操作，而forEach是终止操作   </span></span><br><span class="line"><span class="comment">//下面这个会打印两遍</span></span><br><span class="line">Stream.of(str.split(<span class="string">" "</span>)).peek(System.out::println).forEach(System.out::println);</span><br><span class="line"></span><br><span class="line"><span class="comment">//skip 跳过前n个  limit最多有n个</span></span><br><span class="line">Stream.of(str.split(<span class="string">" "</span>)).skip(<span class="number">2</span>).forEach(System.out::println);</span><br><span class="line">Stream.of(str.split(<span class="string">" "</span>)).limit(<span class="number">2</span>).forEach(System.out::println);</span><br></pre></td></tr></table></figure>
+
+<h4 id="（四）终止操作"><a href="#（四）终止操作" class="headerlink" title="（四）终止操作"></a>（四）终止操作</h4><h5 id="常用方法-1"><a href="#常用方法-1" class="headerlink" title="常用方法"></a>常用方法</h5><table>
+<thead>
+<tr>
+<th align="center">常用方法</th>
+<th align="center">方法说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">collect / toArray</td>
+<td align="center">收集为一个集合/一个数组</td>
+</tr>
+<tr>
+<td align="center">forEach/forEachOrdered</td>
+<td align="center">forEachOrdered在使用并行流的时候保证顺序</td>
+</tr>
+<tr>
+<td align="center">reduce</td>
+<td align="center">将stream中的数据合成一个数据</td>
+</tr>
+<tr>
+<td align="center">min / max / count</td>
+<td align="center">返回数据中的某个属性的最大值/最小值/个数</td>
+</tr>
+<tr>
+<td align="center">findAny/findFirst/allMatch / anyMatch / noneMatch</td>
+<td align="center">短路操作，返回最后一个后stream就会终止</td>
+</tr>
+</tbody></table>
+<h5 id="常用方法演示"><a href="#常用方法演示" class="headerlink" title="常用方法演示"></a>常用方法演示</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用并行流</span></span><br><span class="line">str.chars().parallel().forEach(i -&gt; System.out.print((<span class="keyword">char</span>)i)); <span class="comment">//这个的顺序会乱</span></span><br><span class="line"><span class="comment">//使用forEachOrdered保证顺序</span></span><br><span class="line">str.chars().parallel().forEachOrdered(i-&gt;System.out.print((<span class="keyword">char</span>)i));</span><br><span class="line"></span><br><span class="line"> <span class="comment">//使用reduce将每个单词中间添加一个竖线</span></span><br><span class="line">Optional&lt;String&gt; letters = Stream.of(str.split(<span class="string">" "</span>)).reduce((s1, s2)-&gt; s1+<span class="string">"|"</span>+s2);<span class="comment">//Optional对象时JDK8新的对象定义</span></span><br><span class="line">System.out.println(letters.orElse(<span class="string">""</span>));<span class="comment">//使用Optional的orElse方法表示当有值时返回值,没值时返回空串</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//带初始化值的reduce[第一个参数给初始化值]</span></span><br><span class="line">String reduce = Stream.of(str.split(<span class="string">""</span>)).reduce(<span class="string">""</span>,(s1,s2) -&gt; s1+<span class="string">"|"</span>+s2);</span><br><span class="line">System.out.println(reduce);<span class="comment">//my|name|is|jack</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="（五）并行流"><a href="#（五）并行流" class="headerlink" title="（五）并行流"></a>（五）并行流</h4><h5 id="代码演示-1"><a href="#代码演示-1" class="headerlink" title="代码演示"></a>代码演示</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//产生一个并行流</span></span><br><span class="line"><span class="keyword">long</span> count = IntStream.range(<span class="number">1</span>, <span class="number">100</span>).parallel().peek(StreamDemo1::debug).count();</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用自己创建的线程池 执行并行流</span></span><br><span class="line">ForkJoinPool pool = <span class="keyword">new</span> ForkJoinPool(<span class="number">20</span>);</span><br><span class="line">pool.submit(()-&gt;IntStream.range(<span class="number">1</span>,<span class="number">100</span>).parallel().peek(StreamDemo1::debug)</span><br><span class="line">      .count());<span class="comment">//向线程池中提交进程任务</span></span><br><span class="line">pool.shutdown();<span class="comment">//当任务执行结束后关闭线程池</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="（六）收集器"><a href="#（六）收集器" class="headerlink" title="（六）收集器"></a>（六）收集器</h4><h5 id="实例代码"><a href="#实例代码" class="headerlink" title="实例代码"></a>实例代码</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//测试数据</span></span><br><span class="line">List&lt;Student&gt;students = Arrays.asList(</span><br><span class="line">   <span class="keyword">new</span> Student(<span class="string">"小明"</span>,<span class="number">10</span>,Gender.MALE,Grade.ONE),</span><br><span class="line">   <span class="keyword">new</span> Student(<span class="string">"大明"</span>,<span class="number">9</span>,Gender.FEMALE,Grade.THREE),</span><br><span class="line">   <span class="keyword">new</span> Student(<span class="string">"小白"</span>,<span class="number">8</span>,Gender.FEMALE,Grade.THREE),</span><br><span class="line">   <span class="keyword">new</span> Student(<span class="string">"小黑"</span>,<span class="number">13</span>,Gender.MALE,Grade.THREE),</span><br><span class="line">   <span class="keyword">new</span> Student(<span class="string">"小红"</span>,<span class="number">7</span>,Gender.FEMALE,Grade.TWO),</span><br><span class="line">   <span class="keyword">new</span> Student(<span class="string">"小黄"</span>,<span class="number">13</span>,Gender.MALE,Grade.ONE),</span><br><span class="line">   <span class="keyword">new</span> Student(<span class="string">"小青"</span>,<span class="number">13</span>,Gender.MALE,Grade.TWO),</span><br><span class="line">   <span class="keyword">new</span> Student(<span class="string">"小紫"</span>,<span class="number">9</span>,Gender.MALE,Grade.ONE),</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">//得到所有学生的年龄列表,使用自带的收集器(Collectors.xxx)</span></span><br><span class="line"><span class="comment">//s-&gt;s.getAge() --&gt; Student::getAge尽量使用方法引用的方式,使用方法引用的好处在于 不会多生成一个类似lambda$0这样的函数</span></span><br><span class="line">List&lt;Integer&gt; ages = students.stream().map(s-&gt;s.getAge()).collect(Collectors.toList());</span><br><span class="line">System.out.println(<span class="string">"所有学生的年龄:"</span>+ ages);</span><br><span class="line"></span><br><span class="line"><span class="comment">//统计汇总信息【Collectors.summarizingXXX方法可以对数字进行汇总】</span></span><br><span class="line">IntSummaryStatistics agesSummaryStatistics = 			         				students.stream().collect(Collectors.summarizingInt(Student::getAge));</span><br><span class="line">System.out.println(<span class="string">"年龄汇总信息:"</span> + agesSummaryStatistics);</span><br><span class="line"><span class="comment">//输出结果: 年龄汇总信息: IntSummaryStatistics&#123;count=8, sum=82, min=7, average=10.25， max=13&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//根据规则分块[针对true和false]</span></span><br><span class="line">Map&lt;Boolean, List&lt;Student&gt;&gt; genders = students.stream().collect(Collectors.pertitioningBy(s-&gt;s.getGender() == Gender.MALE));</span><br><span class="line">System.out.println(<span class="string">"男女学生列表: "</span>+genders);</span><br><span class="line"><span class="comment">//输出结果:</span></span><br><span class="line"><span class="comment">//&#123;false=[[name=大明,age=9,gender=FEMALE,grade=THREE],[...]],true=[[...],[...]]</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//根据年级分组[针对不同组内容,可自定义]</span></span><br><span class="line">Map&lt;Grade,List&lt;Student&gt;&gt; grades = students.stream().collect(Collectors.groupingBy(Student::getGrade));</span><br><span class="line">        <span class="comment">//输出结果:</span></span><br><span class="line"><span class="comment">//&#123;TWO=[[name=....],[...]],ONE=[[...],[...]],THREE=[[...],[...]]&#125;</span></span><br><span class="line">        </span><br><span class="line"><span class="comment">//得到所有年级学生的个数，可以在Collectors.groupingBy()方法的第二个参数中在调用Collectors.counting()实现</span></span><br><span class="line">Map&lt;Grade,Long&gt; grades = students.stream().collect(Collectors.groupingBy(Student::getGrade,Collectors.counting());</span><br><span class="line">System.out.println(<span class="string">"学生班级列表: "</span>+grades);</span><br><span class="line"><span class="comment">//输出结果:</span></span><br><span class="line"><span class="comment">//&#123;TWO=2,THREE=3,ONE=3&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="（七）Stream-的运行机制"><a href="#（七）Stream-的运行机制" class="headerlink" title="（七）Stream 的运行机制"></a>（七）Stream 的运行机制</h4><ul>
+<li>每一个中间操作都返回一个新的流 </li>
+<li>流里面有一个属性sourceStage指向同一个地方，就是链表的头Head </li>
+<li>运行是链式调用的，实际调用是<code>Head-&gt;nextStage-&gt;nextStage-&gt;...-&gt;null</code> </li>
+<li><strong>有状态操作会把无状态操作截断，单独处理</strong>【当链式调用peek,filter后调用sorted再调用peek可以看到结果第一个peek和filter是交替输出、输出结束之后sorted会输出、输出结束之后后一个peek会输出】 </li>
+<li><strong>并行环境下，有状态的中间操作不一定能并行操作，都在一个线程中输出结</strong> </li>
+<li>parllel / sequetial 这两个操作也是中间操作（即返回stream的操作），但他们不创建流（其他的中间操作都创建流），只修改流里Head中的并行标志（即sourceStage属性的parallel标志是true还是false） </li>
+</ul>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" target="_blank" rel="noopener" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" target="_blank" rel="noopener" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" target="_blank" rel="noopener" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;" target="_blank" rel="noopener"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/11/24/stream/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/15/hello-world/" class="archive-article-date">
-  	<time datetime="2019-11-15T12:37:26.132Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-15</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/11/15/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hello World</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/15/hello-world/">Hello World</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -233,8 +448,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
